@@ -34,7 +34,8 @@
     .carousel-control-prev,
     .carousel-control-next{
     top: auto;
-bottom: auto;
+    bottom: auto;
+    padding-top:225px;
     }
      body .no-padding{
      padding-left: 0,
@@ -56,7 +57,8 @@ bottom: auto;
     <div class="container">
         {% for product,range,nSlides in allProds %}
           <h1 class="my-3">{{product.0.category}}</h1>
-          <div id="demo{{forloop.counter}}" class="carousel slide my-5 " data-ride="carousel">
+          <div class="row">
+          <div id="demo{{forloop.counter}}" class="carousel slide my-5 col" data-ride="carousel">
               <ul class="carousel-indicators">
                   <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
                   {% for i in range %}
@@ -64,37 +66,28 @@ bottom: auto;
                   {% endfor %}
               </ul>
 
-          <div class="container carousel-inner no-padding">
-              <div class="carousel-item active">
-                  <div class="col-xs-3 col-sm-3 col-md-3">
-                    <div class="card" style="width: 18rem;">
-                      <img src='/media/{{product.0.image}} ' class="card-img-top responsive" alt="...">
-                      <div class="card-body">
-                        <h6 class="card-title">{{product.0.product_name}}</h6>
-                        <p class="card-text"> {{product.0.desc}}</p>
-                        <button id="pr{{product.0.id}}" class="btn btn-primary cart">Add to Cart</a>
+            <div class="container carousel-inner no-padding">
+                <div class="carousel-item active">
+                  {% for i in product %}
+                    <div class="col-xs-3 col-sm-3 col-md-3">
+                      <div class="card" style="width: 18rem;">
+                        <img src='/media/{{i.image}}' class="card-img-top responsive" alt="...">
+                        <div class="card-body">
+                          <h6 class="card-title">{{i.product_name}}</h6>
+                          <p class="card-text">{{i.desc}}</p>
+                          <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</a>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-          {% for i in product|slice:"1:" %}
-              <div class="col-xs-3 col-sm-3 col-md-3">
-                  <div class="card" style="width: 18rem;">
-                    <img src='/media/{{i.image}}' class="card-img-top responsive" alt="...">
-                    <div class="card-body">
-                      <h6 class="card-title">{{i.product_name}}</h6>
-                      <p class="card-text">{{i.desc}}</p>
-                      <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</a>
-                    </div>
-                  </div>
-              </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+                      </div><div class="carousel-item">
+                    {% endif %}
 
-              {% if forloop.counter|add:1|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
-                  </div><div class="carousel-item">
-              {% endif %}
-          {% endfor %}
-          </div>
-          </div>
+                  {% endfor %}
+                      </div>
+            </div>
+
           </div>
 
           <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
@@ -103,7 +96,7 @@ bottom: auto;
           <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
               <span class="carousel-control-next-icon"></span>
           </a>
-            
+        </div>
         {% endfor %} 
     </div>
     {% endblock %}
@@ -117,6 +110,7 @@ bottom: auto;
         else    
         {
         cart = JSON.parse(localStorage.getItem('cart'));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
         }
         $('.cart').click(function(){
         console.log('clicked');
@@ -131,6 +125,9 @@ bottom: auto;
         }
         console.log(cart);
         localStorage.setItem('cart', JSON.stringify(cart));
-        });
+        document.getElementById('cart').innerHtml = Object.keys(cart).length;
+        }); 
+        $('#popcart').popover();
+        document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
         </script>
     {% endblock %}
