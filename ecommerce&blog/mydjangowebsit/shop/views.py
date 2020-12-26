@@ -27,8 +27,11 @@ def about(request):
 def contactUs(request):
     return render(request,'shop/contactUs.html')
 
-def productView(request):
-    return HttpResponse('We are at productView')
+def productView(request,myid):
+    product = Product.objects.filter(id=myid)
+
+    print(product)
+    return render(request,'shop/productView.html',{'product':product[0]})
 
 def search(request):
     return HttpResponse('We are at search')

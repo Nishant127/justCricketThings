@@ -75,7 +75,8 @@
                         <div class="card-body">
                           <h6 class="card-title">{{i.product_name}}</h6>
                           <p class="card-text">{{i.desc}}</p>
-                          <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</a>
+                          <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                          <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary mx-2">Quick View</button></a>
                         </div>
                       </div>
                     </div>
@@ -102,12 +103,12 @@
     {% endblock %}
 
     {% block js %}
-        <script>
-        console.log('working');
+      <script>
+
         if(localStorage.getItem('cart') == null){
         var cart = {};
         }
-        else    
+        else
         {
         cart = JSON.parse(localStorage.getItem('cart'));
         document.getElementById('cart').innerHTML = Object.keys(cart).length;
@@ -125,9 +126,10 @@
         }
         console.log(cart);
         localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cart').innerHtml = Object.keys(cart).length;
-        }); 
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
+        });
         $('#popcart').popover();
         document.getElementById("popcart").setAttribute('data-content', '<h5>Cart for your items in my shopping cart</h5>');
-        </script>
+      </script>
+        
     {% endblock %}
