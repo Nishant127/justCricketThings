@@ -1,15 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from .models import Product
+from .models import Product, Contact
 from math import ceil
 
 def index(request):
-    # products = Product.objects.all()
-    # print(products)
-
-    # # params = {'product':products, 'no_of_slides':nSlides, 'range':range(1,nSlides)}
-    # allProds = [[products ,range(1,nSlides) ,nSlides],
-    #             [products ,range(1,nSlides) ,nSlides]]
     allProds = []
     catProds = Product.objects.values('category','id')
     cats = { item['category'] for item in catProds }
@@ -25,6 +19,15 @@ def about(request):
     return render(request,'shop/about.html')
 
 def contactUs(request):
+    if request.method=='POST':
+        name = request.POST.get('name', '')
+        email = request.POST.get('email','')
+        phone = request.POST.get('phone','')
+        desc = request.POST.get('desc','')
+        print(name,email,phone,desc)
+        contact = Contact(name=name,email=email,phone=phone,desc=desc)
+        contact.save()
+
     return render(request,'shop/contactUs.html')
 
 def productView(request,myid):
