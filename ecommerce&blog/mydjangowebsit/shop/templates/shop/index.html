@@ -109,10 +109,10 @@
       else
       {
       cart = JSON.parse(localStorage.getItem('cart'));
-      document.getElementById('cart').innerHTML = Object.keys(cart).length;
+      
       updateCart(cart)
       }
-      $('.cart').click(function(){
+      $('.divpr').on('click','button.cart',function(){
       console.log('clicked');
       var idstr = this.id.toString();
       console.log(idstr);
@@ -132,16 +132,19 @@
   
       updatePopover(cart);
       function updatePopover(cart) {
-        console.log("NISHANT")
+    
         var popStr = "";
-        popStr = popStr + "<h4>Items in your cart</h4>";
+        popStr = popStr + "<h4>Items in your cart</h4><div class='mx-2 my-2'>";
         var i = 1;
         for(var item in cart) {
           popStr = popStr + "<b>" + i + "</b>. ";
           popStr = popStr + document.getElementById('name'+item).innerHTML.slice(0,15) + "...Qty:" + cart[item] + "<br>";
           i=i+1;
         }
+     
+        popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
         document.getElementById('popcart').setAttribute('data-content',popStr);
+   
         $('#popcart').popover('show');
 
       };
@@ -172,6 +175,26 @@
         document.getElementById('valpr'+a).innerHTML = cart['pr' + a];
         updateCart(cart);
       })
+
+      $('#clearCart').on("click",function(){
+        cart = JSON.parse(localStorage.getItem('cart'));
+      for (var item in cart) {
+          document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+      }
+      localStorage.clear();
+      cart = {};
+      updateCart(cart);       
+      })
+
+      function clearCart() {
+      cart = JSON.parse(localStorage.getItem('cart'));
+      for (var item in cart) {
+          document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+      }
+      localStorage.clear();
+      cart = {};
+      updateCart(cart);
+      }
     </script>
         
     {% endblock %}
