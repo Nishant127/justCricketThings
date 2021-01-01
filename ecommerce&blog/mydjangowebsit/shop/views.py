@@ -43,4 +43,4 @@ def tracker(request):
     return render(request,'shop/tracker.html')
 
 def checkout(request):
-    return HttpResponse('We are at checkout')
+    return render(request,'shop/checkout.html')
