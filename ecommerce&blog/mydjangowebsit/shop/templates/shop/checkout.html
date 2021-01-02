@@ -3,17 +3,19 @@
 {% block title %}Checkout{% endblock %}
 
 {% block body %}
-
+<div class="container my-1">
+  <h3>Items in your cart</h3>
+  <ul class="list-group" id='items'>
+  </ul>
+</div>
 <div class="container my-5">
+  <h3>Address</h3>
     <form class="row g-3">
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">Email</label>
           <input type="email" class="form-control" id="inputEmail4">
         </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Password</label>
-          <input type="password" class="form-control" id="inputPassword4">
-        </div>
+
         <div class="col-12">
           <label for="inputAddress" class="form-label">Address</label>
           <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
@@ -38,15 +40,43 @@
           <input type="text" class="form-control" id="inputZip">
         </div>
         <div class="col-12">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-              Check me out
-            </label>
+          <div >
+            <button class="btn btn-primary">Order Place</button>
           </div>
         </div>
 
       </form>
 </div>
 
+{% endblock %}
+
+{% block js %}
+<script>
+  var sum = 0;
+  if(localStorage.getItem('cart') == null){
+    var cart = {};
+    }
+    else
+    {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    console.log(cart)
+    if ($.isEmptyObject(cart)) {
+    //if object is empty
+    mystr = `<p><h4>Your cart is empty, please add some items to your cart before checking out!</h4></p>`
+    $('#items').append(mystr);} 
+    else {
+    for(item in cart) {
+      let name = cart[item][1]
+      let qty = cart[item][0]
+      sum = sum + qty
+      mystr = `    <li class="list-group-item d-flex justify-content-between align-items-center">
+      ${name}
+      <span class="badge bg-primary rounded-pill">${qty}</span>
+    </li>`
+    $(`#items`).append(mystr);
+    }
+  }
+    document.getElementById('cart').innerHTML = sum;
+    </script>
 {% endblock %}
