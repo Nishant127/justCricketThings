@@ -10,39 +10,44 @@
 </div>
 <div class="container my-5">
   <h3>Address</h3>
-    <form class="row g-3">
+    <form class="row g-3" method="POST" action="/shop/checkout/">{% csrf_token %}
+      <input type="hidden" name="itemsJson" id="itemsJson">
+
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" class="form-control" id="inputEmail4">
+          <label for="name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="col-md-6">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" name="email">
         </div>
 
         <div class="col-12">
-          <label for="inputAddress" class="form-label">Address</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+          <label for="address1" class="form-label">Address</label>
+          <input type="text" class="form-control" id="address1" name="address1" placeholder="1234 Main St">
         </div>
         <div class="col-12">
-          <label for="inputAddress2" class="form-label">Address 2</label>
-          <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+          <label for="address2" class="form-label">Address 2</label>
+          <input type="text" class="form-control" id="address2"  name="address2" placeholder="Apartment, studio, or floor">
         </div>
         <div class="col-md-6">
-          <label for="inputCity" class="form-label">City</label>
-          <input type="text" class="form-control" id="inputCity">
+          <label for="city" class="form-label">City</label>
+          <input type="text" class="form-control" id="city" name="city">
         </div>
-        <div class="col-md-4">
-          <label for="inputState" class="form-label">State</label>
-          <select id="inputState" class="form-select">
-            <option selected>Choose...</option>
-            <option>...</option>
-          </select>
+        <div class="col-md-6">
+          <label for="state" class="form-label">State</label>
+          <input type="text" class="form-control" id="state" name="state">
         </div>
         <div class="col-md-2">
-          <label for="inputZip" class="form-label">Zip</label>
-          <input type="text" class="form-control" id="inputZip">
+          <label for="zip_code" class="form-label">Zip</label>
+          <input type="text" class="form-control" id="zip_code" name="zip_code">
         </div>
-        <div class="col-12">
-          <div >
-            <button class="btn btn-primary">Order Place</button>
-          </div>
+        <div class="col-md-6">
+          <label for="phone" class="form-label">Phone</label>
+          <input type="tel" class="form-control" id="phone" name="phone">
+        </div>
+        <div class="col-md-12">
+          <button class="btn btn-primary my-2">Place Order</button>
         </div>
 
       </form>
@@ -78,5 +83,11 @@
     }
   }
     document.getElementById('cart').innerHTML = sum;
+    $('#itemsJson').val(JSON.stringify(cart));
+    {% if thank %}
+    alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
+    localStorage.clear();
+    document.location = "/shop";
+    {% endif %}
     </script>
 {% endblock %}
