@@ -2,6 +2,12 @@
 {% block title %}HOME{% endblock %}
 
     {% block css %}
+    .mb-5, .my-5 {
+      margin-bottom: 3rem!important;
+     }
+     .mb-5, .my-5 {
+      margin-top: 0.2rem!important;
+     }
     .col-md-3
     {
     display: inline-block;
@@ -45,7 +51,9 @@
       max-height: 260px;
   }
 
-  
+    #category {
+      text-align: center;
+    }
   
   {% endblock %}
 
@@ -53,7 +61,7 @@
     {% load static %}
     <div class="container">
         {% for product,range,nSlides in allProds %}
-          <h1 class="my-3">{{product.0.category}}</h1>
+          <h1 class="my-3" id="category">{{product.0.category}}</h1>
           <div class="row">
           <div id="demo{{forloop.counter}}" class="carousel slide my-5 col" data-ride="carousel">
               <ul class="carousel-indicators">
@@ -71,7 +79,7 @@
                         <img src='/media/{{i.image}}' class="card-img-top responsive" alt="...">
                         <div class="card-body">
                           <h6 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h6>
-                          <p class="card-text">{{i.desc}}</p>
+                        
                           <span id="divpr{{i.id}}" class="divpr">
                           <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
                           </span>
@@ -144,9 +152,9 @@
         }
      
         popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
-        document.getElementById('popcart').setAttribute('data-content',popStr);
+        document.getElementById('tooltip').setAttribute('data-content',popStr);
    
-        $('#popcart').popover('show');
+        $('#tooltip').tooltip('show');
 
       };
 
