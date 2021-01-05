@@ -1,9 +1,98 @@
 {% extends 'shop/basic.html' %}
 
 {% block title %}Checkout{% endblock %}
+{% block css %}
+{% load static %}
+body {
+  background-image: url('{% static "shop/background.png" %}');
+}
 
+h3 {
+  color: white;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #d6ed17ff;
+}
+.card-title {
+    margin-bottom: .75rem;
+    margin-top: -.5rem;
+    color: #fff;
+}
+.card {
+    background-color: black;
+    border-radius : .5rem;
+}
+.btn-primary {
+  color: #262833;
+  /* background-color: #007bff; */
+  /* border-color: #007bff; */
+}
+.navbar-dark .navbar-brand {
+color:  #d6ed17ff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+color: #d6ed17ff;
+}
+
+body .carousel-control-prev-icon, body .carousel-control-next-icon {
+background-color: black;
+}
+
+#category  {
+color: white;
+}
+
+.btn-primary {
+/* color: #fff; */
+/* background-color: #007bff; */
+border-color: #d6ed17ff; 
+}
+
+.btn-secondary {
+color: #262833;
+background-color: #d6ed17ff;
+border-color: #262833;
+}
+
+.btn {
+border-radius: .5rem;
+}
+
+.list-group-item {
+  background-color: #262833;
+  border: 1px solid rgba(0,0,0,.125);
+  color: #d6ed17ff;
+  margin:2px;
+  padding: .5rem .5rem; 
+}
+
+.valb {
+color: white;
+}
+
+label {
+  color:#d6ed17ff;
+  margin-bottom: 0rem;
+}
+
+.bg-primary {
+   background-color: #262833!important; 
+}
+
+.badge {
+  font-size: 125%;
+}
+
+.form-control {
+  background-color:#262833;
+  border: #262833;
+}
+
+{% endblock %}
 {% block body %}
-<div class="container my-1">
+<div class="container mt-4">
   <h3>Items in your cart</h3>
   <ul class="list-group" id='items'>
   </ul>

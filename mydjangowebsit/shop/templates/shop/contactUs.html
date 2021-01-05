@@ -1,7 +1,12 @@
 {% extends 'shop/basic.html' %}
 {% block title %}CONTACT US{% endblock %}
 {% block body %}
-
+{% block css %}
+{% load static %}
+body {
+  background-image: url('{% static "shop/background.png" %}');
+}
+{% endblock %}
 <div class="container my-3">
     <form action="/shop/contactUs/" method="POST">{% csrf_token %} 
             <h3>Contact Us</h3>

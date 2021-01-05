@@ -1,7 +1,10 @@
 {% extends 'shop/basic.html' %}
 {% block title %}HOME{% endblock %}
-
+{% load static %}
     {% block css %}
+    body {
+      background-image: url('{% static "shop/background.png" %}');
+    }
     .mb-5, .my-5 {
       margin-bottom: 3rem!important;
      }
@@ -54,7 +57,84 @@
     #category {
       text-align: center;
     }
+
+    #carouselContent {
+      align-content: center;
+    }
   
+    .carousel-inner img {
+      margin: auto;
+    }
+
+    .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+      background-color: #d6ed17ff;
+    }
+    .card-title {
+        margin-bottom: .75rem;
+        margin-top: -.5rem;
+        color: #fff;
+    }
+    .card {
+        background-color: black;
+        border-radius : .5rem;
+    }
+    .btn-primary {
+      color: #3b3b3b;
+      /* background-color: #007bff; */
+      /* border-color: #007bff; */
+  }
+  .navbar-dark .navbar-brand {
+    color:  #d6ed17ff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #d6ed17ff;
+}
+
+body .carousel-control-prev-icon, body .carousel-control-next-icon {
+  background-color: black;
+}
+
+#category  {
+  color: white;
+}
+
+.btn-primary {
+  /* color: #fff; */
+  /* background-color: #007bff; */
+   border-color: #d6ed17ff; 
+}
+
+.btn-secondary {
+  color: #3b3b3b;
+  background-color: #d6ed17ff;
+  border-color: #3b3b3b;
+}
+
+  .btn {
+    border-radius: .5rem;
+  }
+
+  .minus {
+    color:#3b3b3b;
+  }
+
+  .plus {
+    color:#3b3b3b;
+  }
+
+  hr {
+    border: 1px white;
+  }
+
+  .card-img, .card-img-top {
+    border-radius: .75rem;
+  }
+
+  .valb {
+    color: white;
+  }
+
   {% endblock %}
 
     {% block body %}
@@ -62,6 +142,7 @@
     <div class="container">
         {% for product,range,nSlides in allProds %}
           <h1 class="my-3" id="category">{{product.0.category}}</h1>
+          <hr>
           <div class="row">
           <div id="demo{{forloop.counter}}" class="carousel slide my-5 col" data-ride="carousel">
               <ul class="carousel-indicators">
@@ -71,19 +152,19 @@
                   {% endfor %}
               </ul>
 
-            <div class="container carousel-inner no-padding" >
+            <div class="container carousel-inner no-padding text-center" >
                 <div class="carousel-item active">
                   {% for i in product %}
-                    <div class=" col-md-3 mx-3 px-5">
-                      <div class="card align-items-center mx-2" style="width: 18rem;">
+                    <div class=" col-md-3 mx-3 " >
+                      <div class="card align-items mx-2" id="carouselContent" style="width: 18rem;">
                         <img src='/media/{{i.image}}' class="card-img-top responsive" alt="...">
                         <div class="card-body">
                           <h6 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h6>
                         
                           <span id="divpr{{i.id}}" class="divpr">
-                          <button id="pr{{i.id}}" class="btn btn-primary cart">Add to Cart</button>
+                          <button id="pr{{i.id}}" class="btn btn-primary cart"><b>Add to Cart<b></button>
                           </span>
-                          <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary mx-2">Quick View</button></a>
+                          <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary mx-2"><b>Quick View<b></button></a>
                         </div>
                       </div>
                     </div>
@@ -93,6 +174,7 @@
 
                   {% endfor %}
                       </div>
+                    
             </div>
 
           </div>
@@ -151,10 +233,10 @@
           i=i+1;
         }
      
-        popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
+
         document.getElementById('tooltip').setAttribute('data-content',popStr);
    
-        $('#tooltip').tooltip('show');
+        // $('#tooltip').tooltip('show');
 
       };
 
@@ -163,7 +245,7 @@
     
         for (var item in cart) {
           sum+=cart[item][0];
-          document.getElementById('div' + item).innerHTML = " <button id = 'minus" + item + "' class = 'btn btn-primary minus' >-</button> <span id = 'val" + item + "'> "+ cart[item][0] +" </span> <button id = 'plus"+ item +"' class='btn btn-primary plus'>+</button> ";
+          document.getElementById('div' + item).innerHTML = " <button id = 'minus" + item + "' class = 'btn btn-primary minus' ><b>-</b></button> <span id = 'val" + item + "' class='valb'><b> "+ cart[item][0] +" </b></span> <button id = 'plus"+ item +"' class='btn btn-primary plus'><b>+</b></button> ";
         }
         localStorage.setItem('cart', JSON.stringify(cart));
       document.getElementById('cart').innerHTML = sum;
@@ -196,6 +278,9 @@
       updateCart(cart);       
       })
 
+      $('.carousel').carousel({
+        interval: false,
+      });
     </script>
         
     {% endblock %}
