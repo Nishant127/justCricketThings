@@ -160,7 +160,7 @@ body .carousel-control-prev-icon, body .carousel-control-next-icon {
                         <img src='/media/{{i.image}}' class="card-img-top responsive" alt="...">
                         <div class="card-body">
                           <h6 class="card-title" id="namepr{{i.id}}">{{i.product_name}}</h6>
-                        
+                          <h6 class="card-title" id="pricepr{{i.id}}">{{i.price}}</h6>
                           <span id="divpr{{i.id}}" class="divpr">
                           <button id="pr{{i.id}}" class="btn btn-primary cart"><b>Add to Cart<b></button>
                           </span>
@@ -212,7 +212,9 @@ body .carousel-control-prev-icon, body .carousel-control-next-icon {
       {
         qty=1;
         name = document.getElementById('name'+idstr).innerHTML
-        cart[idstr] = [qty, name];
+        price = document.getElementById('price'+idstr).innerHTML
+        console.log(price)
+        cart[idstr] = [qty, name, price];
       }
 
       updateCart(cart)
