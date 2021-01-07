@@ -9,7 +9,8 @@ urlpatterns = [
     path("products/<int:myid>",views.productView,name='productview'),
     path("search/",views.search,name='search'),
     path("tracker/",views.tracker,name='tracker'),
-    path("checkout/",views.checkout,name='checkout')
+    path("checkout/",views.checkout,name='checkout'),
+    path("handlerequest/",views.handleRequest,name='handlerequest')
     
     
 ]

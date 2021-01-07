@@ -90,19 +90,31 @@ label {
   border: #262833;
 }
 
+.breadcrumb {
+  background-color:#262833;
+}
+
+.breadcrumb-item.active {
+  color: white;
+}
+
 {% endblock %}
 {% block body %}
 <div class="container mt-4">
   <h3>Items in your cart</h3>
   <ul class="list-group" id='items'>
   </ul>
-  <span id="myprice"></span>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb mt-3">
+        <li class="breadcrumb-item active" aria-current="page">Your Cart Total Is &nbsp;<b>&#x20b9;<span id="totalPrice">  </b></span>.&nbsp;Enter your details below & place your order. Thanks for using My Awesome Cart!</li>
+    </ol>
+</nav>
 </div>
 <div class="container my-5">
   <h3>Address</h3>
     <form class="row g-3" method="POST" action="/shop/checkout/">{% csrf_token %}
       <input type="hidden" name="itemsJson" id="itemsJson">
-
+      <input type="hidden" name="amount" id="amount">
         <div class="col-md-6">
           <label for="name" class="form-label">Name</label>
           <input type="text" class="form-control" id="name" name="name">
@@ -176,14 +188,15 @@ label {
     $(`#items`).append(mystr);
     }
     console.log(total);
-     myamt = `<h5>Total Amount ${total}</h5>`
-     $(`#myprice`).append(myamt);
+
 
   }
     document.getElementById('cart').innerHTML = sum;
+    document.getElementById('totalPrice').innerHTML = total;
+    $('#amount').val($('#totalPrice').html())
     $('#itemsJson').val(JSON.stringify(cart));
     {% if thank %}
-    alert('Thanks for ordering with us. Your order is is {{id}}. Use it to track your order using our order tracker');
+    alert('Thanks for ordering with us. Your order is {{id}}. Use it to track your order using our order tracker');
     localStorage.clear();
     document.location = "/shop";
     {% endif %}
