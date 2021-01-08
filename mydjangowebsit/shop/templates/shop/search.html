@@ -1,5 +1,5 @@
 {% extends 'shop/basic.html' %}
-{% block title %}JustCricketThings{% endblock %}
+{% block title %}Search Page{% endblock %}
 {% load static %}
     {% block css %}
     body {
@@ -198,7 +198,10 @@ body .carousel-indicators {
 
     {% block js %}
     <script>
-
+        {% if msg|length != 0 %}
+        alert('{{msg}}');
+        window.location.href = "/shop"
+        {% endif %}
       if(localStorage.getItem('cart') == null){
       var cart = {};
       }

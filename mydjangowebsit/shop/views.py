@@ -12,7 +12,7 @@ def index(request):
     catProds = Product.objects.values('category','id')
     cats = { item['category'] for item in catProds }
     for cat in cats:
-        prod = Product.objects.filter(category=cat)
+        prod = Product.objects.filter(category=cat);
         n = len(prod)
         nSlides = (n//4) - ceil((n/4) - (n//4))
         allProds.append([ prod ,range(1,nSlides) ,nSlides])
@@ -40,8 +40,28 @@ def productView(request,myid):
     print(product)
     return render(request,'shop/productView.html',{'product':product[0]})
 
+def searchMatch(query,item):
+    if query in item.desc.lower() or query in item.product_name.lower() or query in item.category.lower():
+        return True
+    else:
+        return False
+
 def search(request):
-    return HttpResponse('We are at search')
+    query = request.GET.get('search')
+    allProds = []
+    catProds = Product.objects.values('category','id')
+    cats = { item['category'] for item in catProds }
+    for cat in cats:
+        prodtemp = Product.objects.filter(category=cat)
+        prod = [item for item in prodtemp if searchMatch(query,item) ]
+        n = len(prod)
+        nSlides = (n//4) - ceil((n/4) - (n//4))
+        if len(prod) != 0:
+            allProds.append([ prod ,range(1,nSlides) ,nSlides])
+    params={'allProds':allProds,'msg':""}      
+    if len(allProds) == 0 or len(query)<3:
+        params = {'msg': "Please make sure to enter relevant search query"}
+    return render(request,'shop/search.html',params)
 
 def tracker(request):
     return render(request,'shop/tracker.html')
