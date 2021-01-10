@@ -1,3 +1,50 @@
 {% extends 'shop/basic.html' %}
+{% load static %}
 {% block title %}TRACKER{% endblock %}
-{% block body %}TRACKER{% endblock %}
+{% block css %}
+<!-- body{
+    background-image: url('{% static "shop/kit1.jpg" %}');
+    background-repeat: no-repeat;
+    background-size: 100% ;
+
+} -->
+.backimg {
+    display:block;
+    width:100%; height:100%;
+
+}
+<!-- .map-container {
+    background-size: cover;
+    position: relative;
+  }
+  
+  .map-container canvas { position: absolute; }
+  
+  .map-container img {
+    opacity: 0;
+    position: absolute;
+  } -->
+<!-- .solid {outline-style: solid;} -->
+
+{% endblock %}
+{% block body %}
+
+
+ <img src='{% static "shop/kit11.jpg" %}' alt="Workplace" usemap="#workmap" class="backimg map" >
+    <map name="workmap">
+    <area shape="poly" coords="163,117,257,51,945,633,824,755" alt="Computer" href="/shop/bat">
+    <area shape="rect" coords="968,58,596,336" alt="Computer" href="/shop/gloves">
+    <area shape="rect" coords="0,263,334,630" alt="Computer" href="/shop/helmets">
+    <area shape="circle" coords="700,832,58" alt="Computer" href="/shop/balls">
+    <area shape="poly" coords="202,745,452,455,630,643,460,902,501,1004,293,1134,36,829,158,735" alt="Computer" href="/shop/pads">
+  </map>
+
+{% endblock %}
+
+{ % block js % }
+<script type="text/javascript">
+    $(function () {
+        $('.map').maphilight();
+    });
+</script>
+{ % endblock % }

@@ -5,8 +5,8 @@ from math import ceil
 from django.views.decorators.csrf import csrf_exempt
 from PayTm import Checksum 
 from django.http import HttpResponse
+from django.conf import settings
 
-MERCHANT_KEY = 'cuC3sG9G8JkpHqa&'
 def index(request):
     allProds = []
     catProds = Product.objects.values('category','id')
@@ -17,7 +17,81 @@ def index(request):
         nSlides = (n//4) - ceil((n/4) - (n//4))
         allProds.append([ prod ,range(1,nSlides) ,nSlides])
     params={'allProds':allProds}            
-    return render(request,'shop/index.html',params)
+    return render(request,'shop/index1.html',params)
+
+def bat(request):
+    allProds = []
+    catProds = Product.objects.values('category','id')
+    cats = { item['category'] for item in catProds }
+    print(cats)
+    for cat in cats:
+        if cat=='Cricket Bat':
+            prod = Product.objects.filter(category=cat);
+            n = len(prod)
+            nSlides = (n//4) - ceil((n/4) - (n//4))
+            allProds.append([ prod ,range(1,nSlides) ,nSlides])
+            params={'allProds':allProds}            
+            return render(request,'shop/display.html',params)
+
+
+def gloves(request):
+    allProds = []
+    catProds = Product.objects.values('category','id')
+    cats = { item['category'] for item in catProds }
+    print(cats)
+    for cat in cats:
+        if cat=='Batting Gloves':
+            prod = Product.objects.filter(category=cat);
+            n = len(prod)
+            nSlides = (n//4) - ceil((n/4) - (n//4))
+            allProds.append([ prod ,range(1,nSlides) ,nSlides])
+            params={'allProds':allProds}            
+            return render(request,'shop/display.html',params)
+
+
+def helmets(request):
+    allProds = []
+    catProds = Product.objects.values('category','id')
+    cats = { item['category'] for item in catProds }
+    print(cats)
+    for cat in cats:
+        if cat=='Helmets':
+            prod = Product.objects.filter(category=cat);
+            n = len(prod)
+            nSlides = (n//4) - ceil((n/4) - (n//4))
+            allProds.append([ prod ,range(1,nSlides) ,nSlides])
+            params={'allProds':allProds}            
+            return render(request,'shop/display.html',params)
+
+
+def balls(request):
+    allProds = []
+    catProds = Product.objects.values('category','id')
+    cats = { item['category'] for item in catProds }
+    print(cats)
+    for cat in cats:
+        if cat=='Balls':
+            prod = Product.objects.filter(category=cat);
+            n = len(prod)
+            nSlides = (n//4) - ceil((n/4) - (n//4))
+            allProds.append([ prod ,range(1,nSlides) ,nSlides])
+            params={'allProds':allProds}            
+            return render(request,'shop/display.html',params)     
+
+
+def pads(request):
+    allProds = []
+    catProds = Product.objects.values('category','id')
+    cats = { item['category'] for item in catProds }
+    print(cats)
+    for cat in cats:
+        if cat=='Batting Pads':
+            prod = Product.objects.filter(category=cat);
+            n = len(prod)
+            nSlides = (n//4) - ceil((n/4) - (n//4))
+            allProds.append([ prod ,range(1,nSlides) ,nSlides])
+            params={'allProds':allProds}            
+            return render(request,'shop/display.html',params)        
 
 def about(request):
     return render(request,'shop/about.html')
@@ -43,8 +117,7 @@ def productView(request,myid):
 def searchMatch(query,item):
     if query in item.desc.lower() or query in item.product_name.lower() or query in item.category.lower():
         return True
-    else:
-        return False
+    return False
 
 def search(request):
     query = request.GET.get('search')
@@ -87,13 +160,13 @@ def checkout(request):
         'MID': 'dayPrl28492702568848',
         'ORDER_ID': str(order.order_id),
         'TXN_AMOUNT': str(amount),
-        'CUST_ID': 'email',
+        'CUST_ID': email,
         'INDUSTRY_TYPE_ID': 'Retail',
         'WEBSITE': 'WEBSTAGING',
         'CHANNEL_ID': 'WEB',
         'CALLBACK_URL':'http://127.0.0.1:8000/shop/handlerequest/',
          }
-        param_dict['CHECKSUMHASH']=Checksum.generate_checksum(param_dict,MERCHANT_KEY)
+        param_dict['CHECKSUMHASH']=Checksum.generate_checksum(param_dict,settings.PAYTM_MERCHANT_KEY)
         return render(request, 'shop/paytm.html',{'param_dict':param_dict})
     return render(request, 'shop/checkout.html')
 
@@ -106,7 +179,7 @@ def handleRequest(request):
         if i=='CHECKSUMHASH':
             checksum=form[i]
 
-    verify = Checksum.verify_checksum(response_dict, MERCHANT_KEY, checksum)
+    verify = Checksum.verify_checksum(response_dict, settings.PAYTM_MERCHANT_KEY, checksum)
     if verify:
         if response_dict['RESPCODE']=='01':
             print('ORDER SUCCESFUL')

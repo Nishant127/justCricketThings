@@ -123,3 +123,5 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT= os.path.join(BASE_DIR, "media")
 MEDIA_URL="/media/"
+
+PAYTM_MERCHANT_KEY = 'cuC3sG9G8JkpHqa&'
