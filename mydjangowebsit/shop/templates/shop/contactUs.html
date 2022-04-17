@@ -1,12 +1,154 @@
 {% extends 'shop/basic.html' %}
 {% block title %}CONTACT US{% endblock %}
-{% block body %}
+
 {% block css %}
 {% load static %}
 body {
   background-image: url('{% static "shop/background.png" %}');
+  color:white;
 }
+.mb-5, .my-5 {
+  margin-bottom: 3rem!important;
+ }
+ .mb-5, .my-5 {
+  margin-top: 0.2rem!important;
+ }
+.col-md-3
+{
+display: inline-block;
+margin-left:-4px;
+}
+
+.carousel-indicators .active {
+background-color: blue;
+  }
+
+body .carousel-indicator li{
+background-color: blue;
+}
+
+body .carousel-indicators{
+bottom: 0;
+}
+
+body .carousel-control-prev-icon,
+body .carousel-control-next-icon{
+background-color: blue;
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+top: auto;
+bottom: auto;
+padding-top:225px;
+}
+ body .no-padding{
+ padding-left: 0,
+ padding-right: 0;
+ }
+
+ .responsive {
+  width: 100%;
+  height: auto;
+}
+.col-md-3 img {
+  width: 287px;
+  max-height: 260px;
+}
+
+#category {
+  text-align: center;
+}
+
+#carouselContent {
+  align-content: center;
+}
+
+.carousel-inner img {
+  margin: auto;
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: #d6ed17ff;
+}
+.card-title {
+    margin-bottom: .75rem;
+    margin-top: -.5rem;
+    color: #fff;
+}
+.card {
+    background-color: black;
+    border-radius : .5rem;
+}
+.btn-primary {
+  color: #3b3b3b;
+  /* background-color: #007bff; */
+  /* border-color: #007bff; */
+}
+.navbar-dark .navbar-brand {
+color:  #d6ed17ff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+color: #d6ed17ff;
+}
+
+body .carousel-control-prev-icon, body .carousel-control-next-icon {
+background-color: black;
+}
+
+#category  {
+color: white;
+}
+
+.btn-primary {
+/* color: #fff; */
+/* background-color: #007bff; */
+border-color: #d6ed17ff; 
+}
+
+.btn-secondary {
+color: #3b3b3b;
+background-color: #d6ed17ff;
+border-color: #3b3b3b;
+}
+
+.btn {
+border-radius: .5rem;
+}
+
+.minus {
+color:#3b3b3b;
+}
+
+.plus {
+color:#3b3b3b;
+}
+
+hr {
+border: 1px white;
+}
+
+.card-img, .card-img-top {
+border-radius: .75rem;
+}
+
+.valb {
+color: white;
+}
+
+
+
+body .carousel-indicators {
+bottom: -50px;
+}
+
+.fc {
+  color:
+}
+
 {% endblock %}
+{% block body %}
 <div class="container my-3">
     <form action="/shop/contactUs/" method="POST">{% csrf_token %} 
             <h3>Contact Us</h3>

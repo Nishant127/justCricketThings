@@ -147,7 +147,6 @@ body .carousel-indicators {
     {% load static %}
     <div class="container">
         {% for product,range,nSlides in allProds %}
-          <h1 class="my-3" id="category">{{product.0.category}}</h1>
           <hr>
           <div class="row">
           <div id="demo{{forloop.counter}}" class="carousel slide my-5 col" data-ride="carousel">
