@@ -130,12 +130,13 @@ def search(request):
     cursor = connection.cursor()
     query = request.GET.get('search')
     allProds = []
-    sql_query = '''SELECT * FROM shop_product WHERE category='Ball';'''
+    sql_query = '''SELECT * FROM shop_product WHERE category LIKE '%{}%';'''.format(
+        query)
     cursor.execute(sql_query)
     prods = cursor.fetchall()
     n = len(prods)
     nSlides = (n//4) - ceil((n/4) - (n//4))
-    search_prods = {}
+    search_prods = []
     for prod in prods:
         x = {}
         x["product_name"] = prod[1]
@@ -144,8 +145,6 @@ def search(request):
         search_prods.append(x)
     if len(prods) != 0:
         allProds.append([search_prods, range(1, nSlides), nSlides])
-    import ipdb
-    ipdb.set_trace()
     params = {'allProds': allProds, 'msg': ""}
     if len(allProds) == 0 or len(query) < 3:
         params = {'msg': "Please make sure to enter relevant search query"}
